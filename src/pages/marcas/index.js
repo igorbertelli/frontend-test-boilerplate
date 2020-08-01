@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 class Marcas extends React.Component {
   state = {
     marcas: [],
+    marcaSelecionada: "",
+  };
+
+  selected = (event) => {
+    this.setState({
+      marcaSelecionada: event.target.value,
+    });
   };
 
   componentDidMount() {
@@ -22,7 +29,7 @@ class Marcas extends React.Component {
       <>
         <h1>Hello word</h1>
 
-        <select>
+        <select onChange={this.selected}>
           {this.state.marcas.map((marca) => (
             <option key={marca.codigo} value={marca.codigo}>
               {marca.nome}
@@ -30,7 +37,14 @@ class Marcas extends React.Component {
           ))}
         </select>
         <button>
-          <Link to="/modelos"> Modelos</Link>
+          <Link
+            to={{
+              pathname: "/modelos",
+              marcaSelecionada: this.state.marcaSelecionada,
+            }}
+          >
+            Modelos
+          </Link>
         </button>
       </>
     );
